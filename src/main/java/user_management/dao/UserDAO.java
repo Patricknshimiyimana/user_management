@@ -3,6 +3,7 @@ package user_management.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import user_management.model.User;
@@ -70,6 +71,29 @@ public class UserDAO {
   }
   
   // Select user by id
+	  public User selectUser(int id) {
+		  User user = null;
+		  try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER);
+				preparedStatement.setInt(1, id);
+				System.out.println(preparedStatement);
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				// process the ResultSet object
+				while(rs.next()) {
+					String name = rs.getString("name");
+					String email = rs.getString("email");
+					String country = rs.getString("country");
+					user = new User(name, email, country);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return null;
+			  
+	  }
+	  
   // Select All
   // Delete user
 }
