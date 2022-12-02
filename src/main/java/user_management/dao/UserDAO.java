@@ -2,7 +2,10 @@ package user_management.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import user_management.model.User;
 
 // This DAO represents the data access object
 // Provides CRUD db operations for the table users in the db
@@ -32,7 +35,21 @@ public class UserDAO {
 	}
 	  return connection;
   }
+  
   // Create user
+  public void insertUser(User user) {
+	  try {
+		Connection connection = getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER);
+		preparedStatement.setString(1, user.getName());
+		preparedStatement.setString(2, user.getEmail());
+		preparedStatement.setString(3, user.getCountry());
+		preparedStatement.executeUpdate();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+  }
+  
   // Update user
   // Select user by id
   // Select All
