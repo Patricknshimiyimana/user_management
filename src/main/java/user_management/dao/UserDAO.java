@@ -12,11 +12,11 @@ public class UserDAO {
   private String jdbcURL = "jdbc:mysql://localhost:3306/user_management?useSSL=false";
   
   // SQL Commands for user db crud
-  private static final String insertUser = "insert into users" + " (name,email,country) values " + "(?,?,?);";
-  private static final String selectUserById = "select id,name,email,country from users where id = ?";
-  private static final String selectAllUsers = "select * from users";
-  private static final String deleteUser = "delete from users where id = ?;"; 
-  private static final String updateUser = "update users set name = ?, email = ?, country = ? where id = ?;";
+  private static final String INSERT_USER = "insert into users" + " (name,email,country) values " + "(?,?,?);";
+  private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id = ?";
+  private static final String SELECT_ALL_USERS = "select * from users";
+  private static final String DELETE_USER = "delete from users where id = ?;"; 
+  private static final String UPDATE_USER = "update users set name = ?, email = ?, country = ? where id = ?;";
   
   protected Connection getConnection() {
 	  Connection connection = null;
