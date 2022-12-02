@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import user_management.model.User;
 
@@ -85,15 +87,38 @@ public class UserDAO {
 					String name = rs.getString("name");
 					String email = rs.getString("email");
 					String country = rs.getString("country");
-					user = new User(name, email, country);
+					user = new User(id, name, email, country);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		return null;
+		return user;
 			  
 	  }
 	  
-  // Select All
+  // Select All Users
+	  public List<User> selectAllUsers() {
+		  List<User> users = new ArrayList<>();
+		  try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER);
+				System.out.println(preparedStatement);
+				ResultSet rs = preparedStatement.executeQuery();
+				
+				// process the ResultSet object
+				while(rs.next()) {
+					int id = rs.getInt("id");
+					String name = rs.getString("name");
+					String email = rs.getString("email");
+					String country = rs.getString("country");
+					users.add(new User(id, name, email, country));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return users;
+			  
+	  }
+	  
   // Delete user
 }
