@@ -121,4 +121,18 @@ public class UserDAO {
 	  }
 	  
   // Delete user
+	  public boolean deleteUser(int id) {
+		  boolean rowDeleted = false;
+		  try {
+				Connection connection = getConnection();
+				PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER);
+				preparedStatement.setInt(1, id);
+				rowDeleted = preparedStatement.executeUpdate() > 0;
+	
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return rowDeleted;
+			  
+	  }
 }
