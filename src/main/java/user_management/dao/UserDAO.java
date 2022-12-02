@@ -48,9 +48,27 @@ public class UserDAO {
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
+ }
+	  
+	  // Update user
+	  public boolean updateUser(User user) {
+		  boolean rowUpdated = false;
+		  try {
+			Connection connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER);
+			preparedStatement.setString(1, user.getName());
+			preparedStatement.setString(2, user.getEmail());
+			preparedStatement.setString(3, user.getCountry());
+			preparedStatement.setInt(4, user.getId());
+			
+			rowUpdated = preparedStatement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		  
+		return rowUpdated;
   }
   
-  // Update user
   // Select user by id
   // Select All
   // Delete user
