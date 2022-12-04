@@ -2,6 +2,7 @@ package user_management.web;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -73,6 +74,15 @@ public class UserServlet extends HttpServlet {
 			}
 			break;
 			
+		case "/update":
+			try {
+				updateUser(request, response);
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
 		default:
 			// handle list
 		}
@@ -117,6 +127,14 @@ public class UserServlet extends HttpServlet {
 		User updatedUser = new User(id, name, email, country);
 		userDaO.updateUser(updatedUser);
 		response.sendRedirect("list");
+	}
+	
+	private void listAllUser(HttpServletRequest request, HttpServletResponse response) 
+			throws SQLException, ServletException, IOException {
+	List<User> usersList = userDaO.selectAllUsers();
+	request.setAttribute("usersList", usersList);
+	RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
+	dispatcher.forward(request, response);
 	}
 
 }
