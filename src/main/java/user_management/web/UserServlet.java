@@ -85,6 +85,13 @@ public class UserServlet extends HttpServlet {
 			
 		default:
 			// handle list
+			try {
+				listAllUsers(request, response);
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 		}
 	}
 	
@@ -129,7 +136,7 @@ public class UserServlet extends HttpServlet {
 		response.sendRedirect("list");
 	}
 	
-	private void listAllUser(HttpServletRequest request, HttpServletResponse response) 
+	private void listAllUsers(HttpServletRequest request, HttpServletResponse response) 
 			throws SQLException, ServletException, IOException {
 	List<User> usersList = userDaO.selectAllUsers();
 	request.setAttribute("usersList", usersList);
