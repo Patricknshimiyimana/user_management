@@ -64,6 +64,15 @@ public class UserServlet extends HttpServlet {
 			}
 			break;
 			
+		case "/edit":
+			try {
+				showEditForm(request, response);
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
 		default:
 			// handle list
 		}
@@ -89,5 +98,15 @@ public class UserServlet extends HttpServlet {
 		userDaO.deleteUser(id);
 		response.sendRedirect("list");	
 	}
+	
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response) 
+			throws SQLException, ServletException, IOException {
+	int id = Integer.parseInt(request.getParameter("id"));
+	User existingUser = userDaO.selectUser(id);
+	RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+	request.setAttribute("user", existingUser);
+	dispatcher.forward(request, response);
+	}
+	
 
 }
