@@ -108,5 +108,15 @@ public class UserServlet extends HttpServlet {
 	dispatcher.forward(request, response);
 	}
 	
+	private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String country = request.getParameter("country");
+		
+		User updatedUser = new User(id, name, email, country);
+		userDaO.updateUser(updatedUser);
+		response.sendRedirect("list");
+	}
 
 }
