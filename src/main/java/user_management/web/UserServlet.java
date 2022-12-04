@@ -54,6 +54,15 @@ public class UserServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		
+		case "/delete":
+			try {
+				deleteUser(request, response);
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
 			
 		default:
 			// handle list
@@ -73,6 +82,12 @@ public class UserServlet extends HttpServlet {
 		userDaO.insertUser(newUser);
 		response.sendRedirect("list");
 		
+	}
+	
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		userDaO.deleteUser(id);
+		response.sendRedirect("list");	
 	}
 
 }
