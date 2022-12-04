@@ -1,6 +1,7 @@
 package user_management.web;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import user_management.dao.UserDAO;
+import user_management.model.User;
 
 /**
  * Servlet implementation class UserServlet
@@ -43,12 +45,34 @@ public class UserServlet extends HttpServlet {
 		case "/new":
 			showNewForm(request, response);
 			break;
+			
+		case "/insert":
+			try {
+				insertUser(request, response);
+			} catch (SQLException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
+		default:
+			// handle list
 		}
 	}
 	
 	public void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
 		dispatcher.forward(request, response);
+	}
+	
+	private void insertUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		String country = request.getParameter("country");
+		User newUser = new User(name, email, country);
+		userDaO.insertUser(newUser);
+		response.sendRedirect("list");
+		
 	}
 
 }
