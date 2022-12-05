@@ -51,7 +51,6 @@ public class UserServlet extends HttpServlet {
 			try {
 				insertUser(request, response);
 			} catch (SQLException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
@@ -60,7 +59,6 @@ public class UserServlet extends HttpServlet {
 			try {
 				deleteUser(request, response);
 			} catch (SQLException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
@@ -69,7 +67,6 @@ public class UserServlet extends HttpServlet {
 			try {
 				showEditForm(request, response);
 			} catch (SQLException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
@@ -78,7 +75,6 @@ public class UserServlet extends HttpServlet {
 			try {
 				updateUser(request, response);
 			} catch (SQLException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
@@ -88,7 +84,6 @@ public class UserServlet extends HttpServlet {
 			try {
 				listAllUsers(request, response);
 			} catch (SQLException | IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
